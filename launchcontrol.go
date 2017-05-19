@@ -127,7 +127,6 @@ func (l *LaunchControl) Read() (events []Event, err error) {
 		var ctl int
 		var x int
 		var value int64
-
 		switch evt.Status {
 		case 0x90, 0x80:
 			// Button down
@@ -229,11 +228,11 @@ func (l *LaunchControl) Close() error {
 
 // discovers the currently connected LaunchControl device
 // as a MIDI device.
-func discover() (input portmidi.DeviceId, output portmidi.DeviceId, err error) {
+func discover() (input portmidi.DeviceID, output portmidi.DeviceID, err error) {
 	in := -1
 	out := -1
 	for i := 0; i < portmidi.CountDevices(); i++ {
-		info := portmidi.GetDeviceInfo(portmidi.DeviceId(i))
+		info := portmidi.Info(portmidi.DeviceID(i))
 		if strings.Contains(info.Name, "Launch Control XL") {
 			if info.IsInputAvailable {
 				in = i
@@ -246,8 +245,8 @@ func discover() (input portmidi.DeviceId, output portmidi.DeviceId, err error) {
 	if in == -1 || out == -1 {
 		err = errors.New("launchcontrol: no launch control is connected")
 	} else {
-		input = portmidi.DeviceId(in)
-		output = portmidi.DeviceId(out)
+		input = portmidi.DeviceID(in)
+		output = portmidi.DeviceID(out)
 	}
 	return
 }
