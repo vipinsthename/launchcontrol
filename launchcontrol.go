@@ -233,7 +233,7 @@ func discover() (input portmidi.DeviceID, output portmidi.DeviceID, err error) {
 	out := -1
 	for i := 0; i < portmidi.CountDevices(); i++ {
 		info := portmidi.Info(portmidi.DeviceID(i))
-		if strings.Contains(info.Name, "Launch Control XL") {
+		if info.Name == "Launch Control XL" {
 			if info.IsInputAvailable {
 				in = i
 			}
