@@ -20,7 +20,6 @@ package launchcontrol
 
 import (
 	"errors"
-	"strings"
 	"time"
 
 	"github.com/rakyll/portmidi"
